@@ -4,11 +4,13 @@ package {{.Params.RootPkg}}
 
 import (
 	"github.com/lib/pq"
-	uuid "github.com/gofrs/uuid"
+	"github.com/lib/pq/hstore"
+	"github.com/gofrs/uuid"
 	"github.com/pkg/errors"
+	"github.com/jackc/pgx/pgtype"
 )
 
-{{ range (makeSlice "Jsonb" "int" "int32" "string" "sql.NullString" "int64" "sql.NullInt64" "float64" "sql.NullFloat64" "bool" "sql.NullBool" "time.Time" "pq.NullTime" "uint32"  "uuid.UUID" "uuid.NullUUID" "hstore.Hstore" "Bytea") }}
+{{ range (makeSlice "Jsonb" "int" "int32" "string" "sql.NullString" "int64" "sql.NullInt64" "float64" "sql.NullFloat64" "bool" "sql.NullBool" "time.Time" "pq.NullTime" "uint32"  "uuid.UUID" "uuid.NullUUID" "hstore.Hstore" "Bytea" "pgtype.Tstzrange") }}
 {{ $fieldName := title (replace . "." "" 1) }}
 // {{$fieldName}}Field is a component that returns a WhereClause that contains a
 // comparison based on its field and a strongly typed value.

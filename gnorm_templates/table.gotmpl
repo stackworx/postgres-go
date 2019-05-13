@@ -6,7 +6,9 @@ import (
 	"{{.Params.RootImport}}"
 	"{{.Params.RootImport}}/{{toLower .Table.Schema.Name}}/enum"
 	uuid "github.com/gofrs/uuid"
+	"github.com/lib/pq"
 	"github.com/pkg/errors"
+	"github.com/jackc/pgx/pgtype"
 )
 
 // TableName is the primary table that this particular gnormed file deals with.
