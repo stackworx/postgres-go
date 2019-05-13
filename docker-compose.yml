@@ -1,0 +1,13 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:11.2
+    environment:
+      POSTGRES_USER: gnorm-user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: gnorm-db
+      POSTGRES_INITDB_ARGS: --data-checksums
+    volumes:
+      - ./gnorm.sql:/docker-entrypoint-initdb.d/gnorm.sql
+    ports:
+      - 5432:5432

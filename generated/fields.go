@@ -6,7 +6,8 @@ import (
 	"database/sql"
 	"time"
 
-	uuid "github.com/gofrs/uuid"
+	"github.com/gofrs/uuid"
+	"github.com/jackc/pgx/pgtype"
 	"github.com/lib/pq"
 	"github.com/lib/pq/hstore"
 )
@@ -1261,6 +1262,76 @@ func (f ByteaField) NotEqual(v Bytea) Where {
 
 // In returns a WhereClause for this field.
 func (f ByteaField) In(vals []Bytea) InClause {
+	values := make([]interface{}, len(vals))
+	for x := range vals {
+		values[x] = vals[x]
+	}
+	return InClause{
+		Field: string(f),
+		Vals:  values,
+	}
+}
+
+// PgtypeTstzrangeField is a component that returns a WhereClause that contains a
+// comparison based on its field and a strongly typed value.
+type PgtypeTstzrangeField string
+
+// Equals returns a WhereClause for this field.
+func (f PgtypeTstzrangeField) Equals(v pgtype.Tstzrange) Where {
+	return Where{
+		Field: string(f),
+		Comp:  CompEqual,
+		Value: v,
+	}
+}
+
+// GreaterThan returns a WhereClause for this field.
+func (f PgtypeTstzrangeField) GreaterThan(v pgtype.Tstzrange) Where {
+	return Where{
+		Field: string(f),
+		Comp:  CompGreater,
+		Value: v,
+	}
+}
+
+// LessThan returns a WhereClause for this field.
+func (f PgtypeTstzrangeField) LessThan(v pgtype.Tstzrange) Where {
+	return Where{
+		Field: string(f),
+		Comp:  CompLess,
+		Value: v,
+	}
+}
+
+// GreaterOrEqual returns a WhereClause for this field.
+func (f PgtypeTstzrangeField) GreaterOrEqual(v pgtype.Tstzrange) Where {
+	return Where{
+		Field: string(f),
+		Comp:  CompGTE,
+		Value: v,
+	}
+}
+
+// LessOrEqual returns a WhereClause for this field.
+func (f PgtypeTstzrangeField) LessOrEqual(v pgtype.Tstzrange) Where {
+	return Where{
+		Field: string(f),
+		Comp:  CompLTE,
+		Value: v,
+	}
+}
+
+// NotEqual returns a WhereClause for this field.
+func (f PgtypeTstzrangeField) NotEqual(v pgtype.Tstzrange) Where {
+	return Where{
+		Field: string(f),
+		Comp:  CompNE,
+		Value: v,
+	}
+}
+
+// In returns a WhereClause for this field.
+func (f PgtypeTstzrangeField) In(vals []pgtype.Tstzrange) InClause {
 	values := make([]interface{}, len(vals))
 	for x := range vals {
 		values[x] = vals[x]

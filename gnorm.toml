@@ -1,6 +1,6 @@
 # !!!! YOU NEED TO CHANGE THIS !!!!
 # This is the connection string for your database
-ConnStr = "dbname=gnorm-db host=127.0.0.1 sslmode=disable user=gnorm-user"
+ConnStr = "dbname=gnorm-db host=127.0.0.1 sslmode=disable user=gnorm-user password=password"
 
 DBType = "postgres"
 
